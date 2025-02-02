@@ -42,4 +42,9 @@ class SaleRepository implements SaleRepositoryInterface
     {
         return $this->sale->whereBetween('date', [$startDate, $endDate])->get();
     }
+
+    public function paginate(int $perPage = 10)
+    {
+        return $this->sale->paginate($perPage);
+    }
 }

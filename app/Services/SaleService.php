@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Repositories\SaleRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class SaleService
 {
@@ -18,6 +19,8 @@ class SaleService
 
     public function createSale(array $data): Sale
     {
+        Cache::forget('total_sales');
+        Cache::forget('average_sales_per_day');
         return $this->saleRepository->create($data);
     }
 
@@ -28,24 +31,32 @@ class SaleService
 
     public function updateSale(int $id, array $data): Sale
     {
+        Cache::forget('total_sales');
+        Cache::forget('average_sales_per_day');
         return $this->saleRepository->update($id, $data);
     }
 
     public function deleteSale(int $id): bool
     {
+        Cache::forget('total_sales');
+        Cache::forget('average_sales_per_day');
         return $this->saleRepository->delete($id);
     }
 
     public function getTotalSales(): float
     {
-        return $this->saleRepository->all()->sum('amount');
+        return Cache::remember('total_sales', 3600, function () {
+            return $this->saleRepository->all()->sum('amount');
+        });
     }
 
-    public function getAveregeSalesPerDay(): float
+    public function getAverageSalesPerDay(): float
     {
-        $totalSales = $this->getTotalSales();
-        $days = $this->saleRepository->all()->groupBy('date')->count();
-        return $days > 0 ? $totalSales / $days : 0;
+        return Cache::remember('average_sales_per_day', 3600, function () {
+            $totalSales = $this->getTotalSales();
+            $days = $this->saleRepository->all()->groupBy('date')->count();
+            return $days > 0 ? $totalSales / $days : 0;
+        });
     }
 
     public function getSalesByProduct(): array
@@ -61,5 +72,10 @@ class SaleService
     public function getSalesByPeriod(Carbon $startDate, Carbon $endDate)
     {
         return $this->saleRepository->getByPeriod($startDate, $endDate);
+    }
+
+    public function getPaginatedSales(int $perPage = 10)
+    {
+        return $this->saleRepository->paginate($perPage);
     }
 }

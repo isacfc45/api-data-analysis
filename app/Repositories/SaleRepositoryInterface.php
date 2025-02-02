@@ -14,4 +14,5 @@ interface SaleRepositoryInterface
     public function update(int $id, array $data): Sale;
     public function delete(int $id): bool;
     public function getByPeriod(Carbon $startDate, Carbon $endDate): Collection;
+    public function paginate(int $perPage = 10);
 }

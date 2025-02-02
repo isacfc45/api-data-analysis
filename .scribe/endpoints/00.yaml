@@ -1,0 +1,201 @@
+name: Autenticação
+description: 'Endpoint para registrar um novo usuário.'
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      groupName: Autenticação
+      groupDescription: 'Endpoint para registrar um novo usuário.'
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Registrar um novo usuário.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Nome do usuário. Exemplo: João Silva'
+        required: true
+        example: placeat
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      email:
+        name: email
+        description: 'E-mail do usuário. Exemplo: joao@example.com'
+        required: true
+        example: camryn74@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      password:
+        name: password
+        description: 'Senha do usuário. Exemplo: password123'
+        required: true
+        example: '@^9U^%*'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      password_confirmation:
+        name: password_confirmation
+        description: 'Confirmação da senha. Exemplo: password123'
+        required: true
+        example: quae
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      name: placeat
+      email: camryn74@example.org
+      password: '@^9U^%*'
+      password_confirmation: quae
+    fileParameters: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+            "user": {
+              "id": 1,
+              "name": "João Silva",
+              "email": "joao@example.com",
+              "created_at": "2023-10-01T12:00:00.000000Z",
+              "updated_at": "2023-10-01T12:00:00.000000Z"
+            }
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      groupName: Autenticação
+      groupDescription: 'Endpoint para fazer login e obter um token de autenticação.'
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Fazer login.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: 'E-mail do usuário. Exemplo: joao@example.com'
+        required: true
+        example: cody.willms@example.org
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+      password:
+        name: password
+        description: 'Senha do usuário. Exemplo: password123'
+        required: true
+        example: j5cPiGGEz
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        custom: []
+    cleanBodyParameters:
+      email: cody.willms@example.org
+      password: j5cPiGGEz
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "token": "1|XyZ123..."
+          }
+        headers: []
+        description: ''
+        custom: []
+      -
+        status: 401
+        content: |-
+          {
+            "message": "Invalid credentials"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      groupName: Autenticação
+      groupDescription: 'Endpoint para fazer logout e revogar o token de autenticação.'
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Fazer logout.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: |-
+          {
+            "message": "Logged out successfully"
+          }
+        headers: []
+        description: ''
+        custom: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
