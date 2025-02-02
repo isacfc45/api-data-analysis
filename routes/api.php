@@ -26,4 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/sales/{id}', [SaleController::class, 'show']);
     Route::put('/sales/{id}', [SaleController::class, 'update']);
     Route::delete('/sales/{id}', [SaleController::class, 'destroy']);
+    Route::get('/sales/total', [SaleController::class, 'getTotalSales']);
+    Route::get('/sales/average', [SaleController::class, 'getAverageSalesPerDay']);
+    Route::get('/sales/by-product', [SaleController::class, 'getSalesByProduct']);
+    Route::get('/sales/by-period', [SaleController::class, 'getSalesByPeriod']);
 });

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Sale;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 interface SaleRepositoryInterface
@@ -12,4 +13,5 @@ interface SaleRepositoryInterface
     public function create(array $data): Sale;
     public function update(int $id, array $data): Sale;
     public function delete(int $id): bool;
+    public function getByPeriod(Carbon $startDate, Carbon $endDate): Collection;
 }

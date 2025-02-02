@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use App\Services\SaleService;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -42,5 +43,32 @@ class SaleController extends Controller
     {
         $this->saleService->deleteSale($id);
         return ApiResponse::success([], 'Sale deleted successfully.', 200);
+    }
+
+    public function getTotalSales(): JsonResponse
+    {
+        $totalSales = $this->saleService->getTotalSales();
+        return ApiResponse::success(['total_sales' => $totalSales], 'Total sales retrieved successfully.', 200);
+    }
+
+    public function getAveregeSalesPerDay(): JsonResponse
+    {
+        $averageSalesPerDay = $this->saleService->getAveregeSalesPerDay();
+        return ApiResponse::success(['average_sales_per_day' => $averageSalesPerDay], 'Average sales per day retrieved successfully.', 200);
+    }
+
+    public function getSalesByProduct(): JsonResponse
+    {
+        $salesByProduct = $this->saleService->getSalesByProduct();
+        return ApiResponse::success($salesByProduct, 'Sales by product retrieved successfully.', 200);
+    }
+
+    public function getSalesByPeriod(Request $request): JsonResponse
+    {
+        $startDate = Carbon::parse($request->input('start_date'));
+        $endDate = Carbon::parse($request->input('end_date'));
+
+        $sales = $this->saleService->getSalesByPeriod($startDate, $endDate);
+        return ApiResponse::success($sales, 'Sales retrieved successfully.', 200);
     }
 }

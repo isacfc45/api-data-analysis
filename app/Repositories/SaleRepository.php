@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Sale;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class SaleRepository implements SaleRepositoryInterface
@@ -35,5 +36,10 @@ class SaleRepository implements SaleRepositoryInterface
     public function delete(int $id): bool
     {
         return $this->find($id)->delete();
+    }
+
+    public function getByPeriod(Carbon $startDate, Carbon $endDate): Collection
+    {
+        return $this->sale->whereBetween('date', [$startDate, $endDate])->get();
     }
 }
