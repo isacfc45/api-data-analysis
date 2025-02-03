@@ -18,7 +18,7 @@ API para coleta, armazenamento e análise de dados, desenvolvida em Laravel 10 c
 1. **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/seu-usuario/data-analysis-api.git
+    git clone https://github.com/isacfc45/data-analysis-api.git
     cd data-analysis-api
     ```
 
